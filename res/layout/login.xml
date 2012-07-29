@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    		<!-- TextView to use as blank space -->
+    <TextView
+        android:id="@+id/blank"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:ems="10" />
+
+      <EditText
+          android:id="@+id/edit_username"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/username"
+          android:gravity="center"
+          android:ems="10"
+          android:inputType="number">
+          <requestFocus />
+      </EditText>
+
+      <EditText
+          android:id="@+id/edit_password"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/password"
+          android:gravity="center"
+          android:ems="10"
+          android:inputType="textPassword" />
+
+      <Button
+          android:id="@+id/button1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/login_b" 
+          android:layout_gravity="right"
+          android:onClick="LoginUser"/>
+
+</LinearLayout>
