@@ -9,8 +9,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:onClick="ContinueToMain"
-        android:text="Continue" />
-	    <WebView
+        android:text="@string/cont" />
+	    <TextView
 	    	android:id="@+id/login"
 	    	android:layout_width="fill_parent"
 	    	android:layout_height="200dp"/>

@@ -23,9 +23,9 @@ public class Login extends Activity{
     	//login
     	
     	Intent intent = new Intent(this, AccountActivity.class);
-    	EditText username = (EditText) findViewById(R.id.edit_username);
+    	EditText username = (EditText) findViewById(R.id.etUsername);
     	String message1 = username.getText().toString();
-    	EditText password = (EditText) findViewById(R.id.edit_password);
+    	EditText password = (EditText) findViewById(R.id.etPassword);
     	String message2 = password.getText().toString();	
     	intent.putExtra(MESSAGE_user, message1);
     	intent.putExtra (MESSAGE_pass, message2);
@@ -38,7 +38,7 @@ public class Login extends Activity{
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		finish();
+		//finish();
 	}
     
     

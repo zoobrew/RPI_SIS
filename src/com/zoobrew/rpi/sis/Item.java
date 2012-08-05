@@ -13,12 +13,13 @@ public class Item extends Activity {
         setContentView(R.layout.item);
         
         WebView myWebView = (WebView) findViewById(R.id.webview);
-        myWebView.getSettings().setJavaScriptEnabled(true);
+        //myWebView.getSettings().setJavaScriptEnabled(true);
         //load as zoomed out
         myWebView.getSettings().setLoadWithOverviewMode(true);
         myWebView.getSettings().setUseWideViewPort(true);
         myWebView.setWebViewClient(new MyWebViewClient());
         try{
+        	
         myWebView.loadUrl("https://sis.rpi.edu/rss/bwskrsta.P_RegsStatusDisp");
         myWebView.addJavascriptInterface(new JavaScriptInterface(this), "Android");
         }
