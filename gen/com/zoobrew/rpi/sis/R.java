@@ -28,8 +28,9 @@ public final class R {
         public static final int login=0x7f080001;
         public static final int main=0x7f080007;
         public static final int menu_fragment=0x7f080008;
-        public static final int menu_logout=0x7f08000b;
-        public static final int menu_settings=0x7f08000a;
+        public static final int menu_logout=0x7f08000c;
+        public static final int menu_settings=0x7f08000b;
+        public static final int submenu=0x7f08000a;
         public static final int tvPrompt=0x7f080003;
         public static final int webview=0x7f080002;
     }
@@ -39,6 +40,8 @@ public final class R {
         public static final int list=0x7f030002;
         public static final int login=0x7f030003;
         public static final int main=0x7f030004;
+        public static final int menu=0x7f030005;
+        public static final int submenu=0x7f030006;
     }
     public static final class menu {
         public static final int layout_main=0x7f070000;
