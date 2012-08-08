@@ -33,20 +33,16 @@ import org.apache.http.protocol.HttpContext;
 
 import android.util.Log;
 
-public class HttpHelper implements Runnable{
+public class HttpHelper {
 
     public static final int HTTP_TIMEOUT = 30 * 1000; // milliseconds
     private static HttpClient mHttpClient;
     private static HttpContext mContext;
     private static BasicCookieStore mCookieStore;
     
-    public void run() {
-		// TODO Auto-generated method stub
-		
-	}
     
     public HttpHelper(ArrayList<NameValuePair> params){
-    	initClient();
+    	
     	
     }
     
@@ -100,51 +96,49 @@ public class HttpHelper implements Runnable{
      * @return The result of the request
      * @throws Exception
      */
-    public static void executeHttpPost(final String url, final ArrayList<NameValuePair> postParameters) throws Exception {
-    	Thread thread = new Thread(){
-    		BufferedReader in = null;
-    		
-        	public void run(){
-		        try {          
-		            HttpPost request = new HttpPost(url);
-		            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(postParameters);
-		            request.setEntity(formEntity);
-		            HttpResponse response = mHttpClient.execute(request, mContext);
-		            in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-		
-		            StringBuffer sb = new StringBuffer("");
-		            String line = "";
-		            String NL = System.getProperty("line.separator");
-		            while ((line = in.readLine()) != null) {
-		                sb.append(line + NL);
-		            }
-		            in.close();
-		
-		            String result = sb.toString();
-		            Log.d("Http Result:", result);
-		        } catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClientProtocolException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
-		            if (in != null) {
-		                try {
-		                    in.close();
-		                } catch (IOException e) {
-		                    e.printStackTrace();
-		                }
-		            }
-		        }
-		        
-        	}
-    	};
-    	thread.start();
-    	}
+    public static int executeHttpPost(final String url, final ArrayList<NameValuePair> postParameters) // throws Exception 
+    {
+    	initClient();
+		BufferedReader in = null;
+		int status = 0;
+        try {          
+            HttpPost request = new HttpPost(url);
+            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(postParameters);
+            request.setEntity(formEntity);
+            HttpResponse response = mHttpClient.execute(request, mContext);
+            status = response.getStatusLine().getStatusCode();
+            in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+            StringBuffer sb = new StringBuffer("");
+            String line = "";
+            String NL = System.getProperty("line.separator");
+            while ((line = in.readLine()) != null) {
+                sb.append(line + NL);
+            }
+            in.close();
+
+            String result = sb.toString();
+            Log.d("Http Result:", result);
+        } catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return status;
+    }
     
     /**
      * Performs an HTTP GET request to the specified url.
