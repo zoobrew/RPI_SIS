@@ -36,7 +36,7 @@ public class AccountActivity extends Activity {
         nameValuePairs.add(new BasicNameValuePair("PIN", pass));
         
         try {
-			MyWebViewClient.executeHttpPost("https://sis.rpi.edu/rss/twbkwbis.P_ValLogin", nameValuePairs);
+			HttpHelper.executeHttpPost("https://sis.rpi.edu/rss/twbkwbis.P_ValLogin", nameValuePairs);
 			error= "log";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
