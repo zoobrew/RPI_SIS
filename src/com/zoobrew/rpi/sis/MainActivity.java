@@ -29,6 +29,7 @@ public class MainActivity extends ExpandableListActivity
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
     
         List<Map<String, String>> menuData = new ArrayList<Map<String, String>>();
         List<List<Map<String, String>>> submData = new ArrayList<List<Map<String, String>>>();
@@ -53,16 +54,17 @@ public class MainActivity extends ExpandableListActivity
         mAdapter = new SimpleExpandableListAdapter(
        		 this, 
        		 menuData, // groupData describes the first-level entries 
-       		 android.R.layout.simple_expandable_list_item_1, // Layout for the first-level entries new
-       		 new String[] { NAME,  IS_EVEN }, // Key in the groupData maps to display 
+       		 android.R.layout.simple_expandable_list_item_2, // Layout for the first-level entries new
+       		 new String[] { NAME,  IS_EVEN }, // Key in the menuData maps to display 
        		 new int[] { android.R.id.text1, android.R.id.text2 }, // Data under "Item" key goes into this TextView createChildList(),
        		 submData, // describes second-level entries 
-       		 android.R.layout.simple_list_item_2, // Layout for second-level entries 
-       		 new String[] { IS_EVEN, NAME }, // Keys in childData maps to display 
+       		 android.R.layout.simple_list_item_1, // Layout for second-level entries 
+       		 new String[] { NAME, IS_EVEN }, // Keys in submData maps to display 
        		 new int[] { android.R.id.text1, android.R.id.text2 } // Data under the keys above go into these TextViews 
         	 );
         setListAdapter(mAdapter);
     }
+	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
@@ -77,7 +79,7 @@ public class MainActivity extends ExpandableListActivity
 		{
 			if (childPosition < Titles.SubMenu[groupPosition].length)
 			{
-				Intent intent = new Intent(this, AccountActivity.class);
+				Intent intent = new Intent(this, Item.class);
 		    	String number1 = Integer.toString(groupPosition);
 		    	intent.putExtra(MESSAGE1, number1);
 		    	String number2 = Integer.toString(childPosition);
@@ -86,10 +88,7 @@ public class MainActivity extends ExpandableListActivity
 				
 				return true;
 			}
-			else
-				return false;
 		}
-		else
-			return false;
+		return false;
     }
 }

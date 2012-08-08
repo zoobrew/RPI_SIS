@@ -8,6 +8,7 @@
         android:targetSdkVersion="15" />
     
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -22,12 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AccountActivity">
-            
-        </activity>
-        <activity
-            android:name=".MainActivity">
-        </activity>
+        <activity android:name=".AccountActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Item"></activity>
     </application>
 </manifest>
