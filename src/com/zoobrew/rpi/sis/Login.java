@@ -37,6 +37,8 @@ public class Login extends Activity{
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	    nameValuePairs.add(new BasicNameValuePair("sid", user));
 	    nameValuePairs.add(new BasicNameValuePair("PIN", pass));
+	    
+	    final Handler mHandler = new Handler();
 	     
 	    HttpHelper network = new HttpHelper(nameValuePairs);
 	    try {
