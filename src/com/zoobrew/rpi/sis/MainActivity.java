@@ -22,8 +22,8 @@ public class MainActivity extends ExpandableListActivity
 	private static final String NAME = "NAME";
 	private static final String IS_EVEN = "IS_EVEN";
 	private ExpandableListAdapter mAdapter;
-	public final static String MESSAGE1 = "com.zoobrew.rpi.sis.Main1";
-	public final static String MESSAGE2 = "com.zoobrew.rpi.sis.Main2";
+	public final static String MENUNUM = "com.zoobrew.rpi.sis.MenuNum";
+	public final static String SUBMENUNUM= "com.zoobrew.rpi.sis.SubMenuNum";
  
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -68,6 +68,7 @@ public class MainActivity extends ExpandableListActivity
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
+		//TODO add on click functionality
         getMenuInflater().inflate(R.menu.layout_main, menu);
         return true;
     }
@@ -81,9 +82,9 @@ public class MainActivity extends ExpandableListActivity
 			{
 				Intent intent = new Intent(this, Item.class);
 		    	String number1 = Integer.toString(groupPosition);
-		    	intent.putExtra(MESSAGE1, number1);
+		    	intent.putExtra(MENUNUM, number1);
 		    	String number2 = Integer.toString(childPosition);
-		    	intent.putExtra(MESSAGE2, number2);
+		    	intent.putExtra(SUBMENUNUM, number2);
 		    	startActivity(intent);
 				
 				return true;

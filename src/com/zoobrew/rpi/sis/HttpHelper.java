@@ -36,9 +36,9 @@ import android.util.Log;
 public class HttpHelper {
 
     public static final int HTTP_TIMEOUT = 30 * 1000; // milliseconds
-    private static HttpClient mHttpClient;
-    private static HttpContext mContext;
-    private static BasicCookieStore mCookieStore;
+    private static HttpClient mHttpClient = null;
+    private static HttpContext mContext = null;
+    private static BasicCookieStore mCookieStore = null;
     
     
     public HttpHelper(ArrayList<NameValuePair> params){
@@ -151,10 +151,9 @@ public class HttpHelper {
     {
         BufferedReader in = null;
         try {
-            HttpClient client = getHttpClient();
             HttpGet request = new HttpGet();
             request.setURI(new URI(url));
-            HttpResponse response = client.execute(request);
+            HttpResponse response = mHttpClient.execute(request, mContext);
             in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
             StringBuffer sb = new StringBuffer("");
