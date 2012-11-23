@@ -105,6 +105,8 @@ public class HttpHelper {
             HttpPost request = new HttpPost(url);
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(postParameters);
             request.setEntity(formEntity);
+            //doesn't login on first try
+            HttpResponse response1 = mHttpClient.execute(request, mContext);
             HttpResponse response = mHttpClient.execute(request, mContext);
             status = response.getStatusLine().getStatusCode();
             in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));

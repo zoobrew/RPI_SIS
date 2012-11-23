@@ -71,7 +71,6 @@ public class Login extends Activity{
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	    nameValuePairs.add(new BasicNameValuePair("sid", user));
 	    nameValuePairs.add(new BasicNameValuePair("PIN", pass));
-	     
 		return HttpHelper.executeHttpPost("https://sis.rpi.edu/rss/twbkwbis.P_ValLogin", nameValuePairs);
     }
     

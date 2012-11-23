@@ -24,7 +24,7 @@ public class Titles
     	//CurriculumItems
     	{"Advisor and Curriculum Information",
 		"View Grades",
-		"VIew Transcript",
+		"View Transcript",
 		"Request Transcript",
 		"Check Transcript Request Status",
 		"View Capp Report"},
