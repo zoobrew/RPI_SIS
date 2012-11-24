@@ -139,6 +139,7 @@ public class HttpHelper {
                 }
             }
         }
+        Log.d("Http Status:", String.valueOf(status)); 
         return status;
     }
     

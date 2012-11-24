@@ -10,13 +10,13 @@ import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 //import android.view.MenuItem;
 //import android.support.v4.app.NavUtils;
-import android.widget.Toast;
 
 public class MainActivity extends ExpandableListActivity 
 {	
@@ -73,6 +73,24 @@ public class MainActivity extends ExpandableListActivity
         getMenuInflater().inflate(R.menu.layout_main, menu);
         return true;
     }
+	
+	@Override
+	public boolean onOptionsItemSelected (MenuItem item)
+	{
+		// Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.menu_settings:
+	        	Intent intent = new Intent(this, SettingsActivity.class);
+	        	startActivity(intent);
+	            return true;
+	        case R.id.menu_logout:
+	        	Intent logout = new Intent(this, Login.class);
+	        	startActivity(logout);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 	
 	/*Called when the user presses the settings button in the action overflow
     public void ButtonPress(View view){

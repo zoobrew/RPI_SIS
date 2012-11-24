@@ -3,7 +3,10 @@ package com.zoobrew.rpi.sis;
 import java.io.InputStream;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 
 public class SettingsActivity extends Activity {
@@ -17,92 +20,28 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settingsmenu);
 	}
-     /*
-        
-        
-        // Get the message from the intent
-	    Intent intent = getIntent();
-	    user = intent.getStringExtra(Login.MESSAGE_user);
-	    pass = intent.getStringExtra(Login.MESSAGE_pass);
-	    
-	    ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("sid", user));
-        nameValuePairs.add(new BasicNameValuePair("PIN", pass));
-        
-        try {
-			HttpHelper.executeHttpPost("https://sis.rpi.edu/rss/twbkwbis.P_ValLogin", nameValuePairs);
-			error= "log";
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			error = "catch";
-		}
-	    
-	    TextView err = (TextView) findViewById(R.id.login);
-	    err.setText(error);
-	    
-	    /* Create the text view
-	    
-
-	    TextView pass = (TextView) findViewById(R.id.Text2);
-	    pass.setText(message2);
-	    
-	    WebView myWebView = (WebView) findViewById(R.id.login);
-        //myWebView.getSettings().setJavaScriptEnabled(true);
-        //load as zoomed out
-        //myWebView.getSettings().setLoadWithOverviewMode(true);
-        myWebView.getSettings().setUseWideViewPort(true);
-        myWebView.setWebViewClient(new MyWebViewClient());
-        
-        try{
-        	myWebView.loadUrl("https://sis.rpi.edu/rss/twbkwbis.P_WWWLogin");
-        	myWebView.addJavascriptInterface(new JavaScriptInterface(this), "Android");
-        }
-        catch(Exception e){
-        	e.printStackTrace();
-        }
     
-    /*private void start_login() {
-        // TODO Auto-generated method stub
-        Toast.makeText(this, "Logging in...", Toast.LENGTH_LONG).show();
-        
-        Thread thread = new Thread(){
-        	public void run(){
-		        try {
-		
-		            ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		            nameValuePairs.add(new BasicNameValuePair("sid", user));
-		            nameValuePairs.add(new BasicNameValuePair("PIN", pass));
-		            
-		            HttpClient httpclient = getClient();
-		            //HttpPost httppost = new HttpPost(KEY_121);
-		            HttpPost httppost = new HttpPost("https://sis.rpi.edu/rss/twbkwbis.P_WWWLogin");
-		            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-		            HttpResponse response = httpclient.execute(httppost);
-		            HttpEntity entity = response.getEntity();
-		            is = entity.getContent();
-		            // writing response to log
-		            Log.d("Http Response:", response.toString());
-		            Log.d("Http Content:", is.toString());
-		            
-		    	    
-		
-		            //wv.loadData(CustomHttpClient.executeHttpPost(URL, nameValuePairs), "text/html", "utf-8");
-		
-		        } catch (Exception e) {
-		            // TODO Auto-generated catch block
-		        	Log.e("log_tag", "Error in http connection "+e.toString());
-		        	e.printStackTrace();
-		        }
-        	}
-        };
-        thread.start();
-
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) 
+    {
+		//TODO add on click functionality
+        getMenuInflater().inflate(R.menu.layout_settings, menu);
+        return true;
     }
-    */
-    
-
-
+	
+	@Override
+	public boolean onOptionsItemSelected (MenuItem item)
+	{
+		// Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.menu_logout:
+	        	Intent logout = new Intent(this, Login.class);
+	        	startActivity(logout);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 	
     @Override
  	protected void onPause() {

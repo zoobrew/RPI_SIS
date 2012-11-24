@@ -14,7 +14,7 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light"
+        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
         android:debuggable="true">  
         <activity
             android:name=".Login"
@@ -28,5 +28,6 @@
         <activity android:name=".AccountActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Item"></activity>
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 </manifest>
