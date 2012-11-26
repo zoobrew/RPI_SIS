@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.app.ActionBar;
 import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +31,9 @@ public class MainActivity extends ExpandableListActivity
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
     
         List<Map<String, String>> menuData = new ArrayList<Map<String, String>>();
         List<List<Map<String, String>>> submData = new ArrayList<List<Map<String, String>>>();
@@ -79,6 +82,12 @@ public class MainActivity extends ExpandableListActivity
 	{
 		// Handle item selection
 	    switch (item.getItemId()) {
+	    	case android.R.id.home:
+		    	// app icon in action bar clicked; go home
+	            Intent goHome = new Intent(this, MainActivity.class);
+	            goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(goHome);
+	            return true;
 	        case R.id.menu_settings:
 	        	Intent intent = new Intent(this, SettingsActivity.class);
 	        	startActivity(intent);

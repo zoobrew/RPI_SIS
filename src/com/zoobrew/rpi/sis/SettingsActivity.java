@@ -2,6 +2,7 @@ package com.zoobrew.rpi.sis;
 
 import java.io.InputStream;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ public class SettingsActivity extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getActionBar();
+        actionBar.setHomeButtonEnabled(true);
         setContentView(R.layout.settingsmenu);
 	}
     
@@ -34,7 +37,13 @@ public class SettingsActivity extends Activity {
 	{
 		// Handle item selection
 	    switch (item.getItemId()) {
-	        case R.id.menu_logout:
+	    	case android.R.id.home:
+		    	// app icon in action bar clicked; go home
+	            Intent goHome = new Intent(this, MainActivity.class);
+	            goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(goHome);
+	            return true;
+	    	case R.id.menu_logout:
 	        	Intent logout = new Intent(this, Login.class);
 	        	startActivity(logout);
 	            return true;
