@@ -2,9 +2,113 @@
 <resources>
      <string-array
         name="pref_syncConnectionTypes_entries">
-        <item>text_string</item>
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
     </string-array>
     <string-array name="pref_syncConnectionTypes_values">
-        <item>text_string</item>
+        <item>values1</item>
+        <item>values2</item>
     </string-array>
+    <string-array name="Menus">
+        <item>Registration Information</item>
+        <item>Curriculum Information</item>
+        <item>Graduation Information</item>
+        <item>Financial Aid Information</item>
+        <item>Personal Information</item>
+	</string-array>
+    
+    <string-array name = "SubMenus">
+        
+    </string-array>
+    
+    <!-- RegistrationItems -->
+    <string-array name = "RegistrationItems">
+    	<item>Registation Status</item>
+    	<item>Register, Add or Drop</item>
+    	<item>Change My Thesis/Project Credits</item>
+    	<item>View Schedule Grid</item>
+    	<item>View Schedule</item>
+    	<item>Pre-Pack Order</item>
+    </string-array>
+    
+    <string-array name = "CurriculumItems">
+    	<item>Advisor and Curriculum Information</item>
+		<item>View Grades</item>
+		<item>View Transcript</item>
+		<item>Request Transcript</item>
+		<item>Check Transcript Request Status</item>
+		<item>View Capp Report</item>
+	</string-array>
+		
+	<string-array name ="GraduationItems">
+		<item>Degree Application Term</item>
+    	<item>Degree Status</item>
+    	<item>View Holds</item>
+    	<item>View Diploma Information</item>
+    </string-array>
+    
+    <string-array name ="FinancialItems">
+    	<item>Account Information</item>
+    	<item>Status of Financial Aid</item>
+    	<item>View Eligibility</item>
+    	<item>Award Information</item>
+    	<item>Laptop Status</item>
+    </string-array>
+    	
+    <string-array name="PersonalInformation">
+    	<item>Update RPI Alert number</item>
+    	<item>Change My PIN</item>
+    	<item>Update My Address</item>
+    	<item>Update My Emergency Contacts</item>
+    </string-array>
+    
+    
+    <string-array name = "MenuHttp">
+        <item>temp</item>
+        
+    </string-array>
+    
+    <string-array name = "RegistrationItems_links">
+    	<item>https://sis.rpi.edu/rss/bwskrsta.P_RegsStatusDisp</item>
+    	<item>https://sis.rpi.edu/rss/bwskfreg.P_AltPin</item>
+    	<item>https://sis.rpi.edu/rss/bwskfreg.P_ChangeCrseOpt</item>
+    	<item>https://sis.rpi.edu/rss/bwskfcls.p_sel_crse_search</item>
+    	<item>https://sis.rpi.edu/rss/bwskfshd.P_CrseSchd</item>
+    	<item>https://sis.rpi.edu/rss/bwskfshd.P_CrseSchdDetl</item>
+    	<item>http://bookstore.rpi.edu/index.php?module=prepack2</item>
+    </string-array>
+    
+    <string-array name ="CurriculumItems_links">
+    	<item>https://sis.rpi.edu/rss/bwskgstu.P_StuInfo</item>
+    	<item>https://sis.rpi.edu/rss/bwskogrd.P_ViewTermGrde</item>
+    	<item>https://sis.rpi.edu/rss/bwskotrn.P_ViewTermTran</item>
+    	<item>https://sis.rpi.edu/rss/bwskwtrr.p_disp_transcript_request_type</item>
+    	<item>https://sis.rpi.edu/rss/bwskwtrr.p_disp_status_of_order</item>
+    	<item>https://sis.rpi.edu/rss/hwskocap.P_StuSelectCompl</item>
+    </string-array>
+    
+    <string-array name = "GraduationItems_links">
+    	<item>https://sis.rpi.edu/rss/hwskgrad.P_StuSelectTerm?menu_choice=A</item>
+    	<item>https://sis.rpi.edu/rss/hwskgrad.P_StuSelectTerm?menu_choice=B</item>
+    	<item>https://sis.rpi.edu/rss/hwskgrad.P_StuViewHolds</item>
+    	<item>https://sis.rpi.edu/rss/hwskgrad.P_StuSelectTerm?menu_choice=D</item>
+    </string-array>
+    
+    <string-array name = "FinancialItems_links">
+    	<item>https://sis.rpi.edu/rss/twbkwbis.P_GenMenu?name=bmenu.P_AcctInfoMnu</item>
+    	<item>https://sis.rpi.edu/rss/bwrksumm.P_DispSumm</item>
+    	<item>https://sis.rpi.edu/rss/twbkwbis.P_GenMenu?name=bmenu.P_FACostMnu</item>
+    	<item>https://sis.rpi.edu/rss/twbkwbis.P_GenMenu?name=bmenu.P_FAAwdMnu</item>
+    	<item>https://sis.rpi.edu/rss/hwsklptp.P_StuViewLptp</item>
+    </string-array>
+    
+    <string-array name = "PersonalInformation_links">
+    	<item>https://sis.rpi.edu/rss/ywemernot.P_Main</item>
+    	<item>https://sis.rpi.edu/rss/twbkwbis.P_ChangePin</item>
+    	<item>https://sis.rpi.edu/rss/bwgkogad.P_SelectAtypUpdate</item>
+    	<item>https://sis.rpi.edu/rss/bwgkoemr.P_SelectEmrgContacts</item>
+    </string-array>
+    
+    
 </resources>

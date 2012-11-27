@@ -9,7 +9,7 @@ import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
+//TODO convert to settingfragment
 public class SettingsActivity extends PreferenceActivity {
 	String user;
 	String pass;
