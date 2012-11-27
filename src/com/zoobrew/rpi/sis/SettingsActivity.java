@@ -3,14 +3,14 @@ package com.zoobrew.rpi.sis;
 import java.io.InputStream;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends PreferenceActivity {
 	String user;
 	String pass;
 	InputStream is = null;
@@ -19,9 +19,10 @@ public class SettingsActivity extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.layout.settingsmenu);
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
-        setContentView(R.layout.settingsmenu);
+        //setContentView(R.layout.settingsmenu);
 	}
     
 	@Override
