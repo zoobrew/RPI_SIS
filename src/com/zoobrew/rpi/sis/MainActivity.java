@@ -9,6 +9,7 @@ import java.util.Map;
 import android.app.ActionBar;
 import android.app.ExpandableListActivity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +38,9 @@ public class MainActivity extends ExpandableListActivity
     
         List<Map<String, String>> menuData = new ArrayList<Map<String, String>>();
         List<List<Map<String, String>>> submData = new ArrayList<List<Map<String, String>>>();
+        
+        Resources res = getResources();
+        String[] planets = res.getStringArray(R.array.SubMenus);
         
         for (int i =0; i < 5; i++) 
         {

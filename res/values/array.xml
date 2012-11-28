@@ -10,6 +10,7 @@
         <item>values1</item>
         <item>values2</item>
     </string-array>
+    
     <string-array name="Menus">
         <item>Registration Information</item>
         <item>Curriculum Information</item>
@@ -19,7 +20,11 @@
 	</string-array>
     
     <string-array name = "SubMenus">
-        
+         <item>@array/RegistrationItems</item>
+         <item>@array/CurriculumItems</item>
+         <item>@array/GraduationItems</item>
+         <item>@array/FinancialItems</item>
+         <item>@array/PersonalInformation</item>
     </string-array>
     
     <!-- RegistrationItems -->
@@ -65,8 +70,11 @@
     
     
     <string-array name = "MenuHttp">
-        <item>temp</item>
-        
+        <item>@array/RegistrationItems_links</item>
+        <item>@array/CurriculumItems_links</item>
+        <item>@array/GraduationItems_links</item>
+        <item>@array/FinancialItems_links</item>
+        <item>@array/PersonalInformation_links</item>
     </string-array>
     
     <string-array name = "RegistrationItems_links">

@@ -16,7 +16,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.conn.params.ConnManagerParams;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
@@ -25,7 +24,6 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
@@ -46,7 +44,7 @@ public class HttpHelper {
     	
     }
     
-    private static HttpClient getHttpClient() {
+    /*private static HttpClient getHttpClient() {
         if (mHttpClient == null) {
             mHttpClient = new DefaultHttpClient();
             final HttpParams params = mHttpClient.getParams();
@@ -56,6 +54,7 @@ public class HttpHelper {
         }
         return mHttpClient;
     }
+    */
     private static void initClient() 
 	{ 
 	    if (mHttpClient == null)
@@ -106,7 +105,7 @@ public class HttpHelper {
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(postParameters);
             request.setEntity(formEntity);
             //doesn't login on first try
-            HttpResponse response1 = mHttpClient.execute(request, mContext);
+            mHttpClient.execute(request, mContext);
             HttpResponse response = mHttpClient.execute(request, mContext);
             status = response.getStatusLine().getStatusCode();
             in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
