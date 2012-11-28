@@ -40,7 +40,7 @@ public class MainActivity extends ExpandableListActivity
         List<List<Map<String, String>>> submData = new ArrayList<List<Map<String, String>>>();
         
         Resources res = getResources();
-        String[] planets = res.getStringArray(R.array.SubMenus);
+        String[] SubMenus = res.getStringArray(R.array.SubMenus);
         
         for (int i =0; i < 5; i++) 
         {
@@ -98,7 +98,7 @@ public class MainActivity extends ExpandableListActivity
 	            return true;
 	        case R.id.menu_logout:
 	        	Intent logout = new Intent(this, Login.class);
-	        	startActivity(logout);
+	        	finish();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);

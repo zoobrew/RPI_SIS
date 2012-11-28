@@ -46,7 +46,7 @@ public class SettingsActivity extends PreferenceActivity {
 	            return true;
 	    	case R.id.menu_logout:
 	        	Intent logout = new Intent(this, Login.class);
-	        	startActivity(logout);
+	        	finish();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
