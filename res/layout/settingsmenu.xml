@@ -4,6 +4,7 @@
         android:key="darkttheme_preference"
         android:title="Use Holo Dark Theme"
         android:summary="Use Dark Theme"
+        
         android:defaultValue="true" />
     <ListPreference
         android:dependency="darkttheme_preference"

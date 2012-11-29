@@ -11,7 +11,6 @@ import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,10 +30,10 @@ public class MainActivity extends ExpandableListActivity
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
+        ThemeUtil.onActivityCreateSetTheme(this);
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
         //actionBar.setDisplayHomeAsUpEnabled(true);
-        PreferenceManager.setDefaultValues(this, R.layout.settingsmenu, false);
     
         List<Map<String, String>> menuData = new ArrayList<Map<String, String>>();
         List<List<Map<String, String>>> submData = new ArrayList<List<Map<String, String>>>();
@@ -76,7 +75,6 @@ public class MainActivity extends ExpandableListActivity
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
-		//TODO add on click functionality
         getMenuInflater().inflate(R.menu.layout_main, menu);
         return true;
     }

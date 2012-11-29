@@ -15,6 +15,10 @@ import android.view.MenuItem;
 //TODO convert to settingfragment
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	public static final String DARK_THEME_SELECTED = "darkttheme_preference";
+	private static int sTheme;
+
+    public final static int THEME_DEFAULT = 0;
+    public final static int THEME_DARK = 1;
 	
 	String user;
 	String pass;
@@ -23,7 +27,8 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        
+		super.onCreate(savedInstanceState);
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
      // Display the fragment as the main content.
@@ -52,7 +57,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 	            startActivity(goHome);
 	            return true;
 	    	case R.id.menu_logout:
-	        	Intent logout = new Intent(this, Login.class);
 	        	finish();
 	            return true;
 	        default:
@@ -60,20 +64,27 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 	    }
 	}
 	
+    protected void onResume() {
+        super.onResume();
+       // getPreferenceScreen().getSharedPreferences()
+         //       .registerOnSharedPreferenceChangeListener(this);
+    }
+	
     @Override
- 	protected void onPause() {
- 		// TODO Auto-generated method stub
- 		super.onPause();
- 		finish();
- 	}
+    protected void onPause() {
+        super.onPause();
+        //getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+    }
+
 
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		// TODO Auto-generated method stub
 		if (key.equals(DARK_THEME_SELECTED)) {
             Preference connectionPref = findPreference(key);
             // Set summary to be the user-description for the selected value
-            connectionPref.setSummary(sharedPreferences.getString(key, "dark_setting"));
-            //Utils.changeToTheme(this, Utils.THEME_DEFAULT);
+            connectionPref.setSummary(sharedPreferences.getString(key, ""));
+            
+            
         }
 	}
 }
