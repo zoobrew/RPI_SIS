@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
-        android:key="pref_sync"
+        android:key="darkttheme_preference"
         android:title="Use Holo Dark Theme"
-        android:summary="info abbout the option"
+        android:summary="Use Dark Theme"
         android:defaultValue="true" />
     <ListPreference
-        android:dependency="pref_sync"
+        android:dependency="darkttheme_preference"
         android:key="pref_syncConnectionType"
         android:title="pref_syncConnectionType"
         android:dialogTitle="ref_syncConnectionType"

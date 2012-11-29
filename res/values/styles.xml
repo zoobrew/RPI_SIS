@@ -1,5 +1,12 @@
 <resources>
-
+	
     <style name="AppTheme" parent="android:Theme.Light" />
-
+	
+    <style name="FirstTheme" >
+        <item name="android:textColor">#FF0000</item>
+    </style>
+    <style name="SecondTheme" >
+        <item name="android:textColor">#00FF00</item>
+    </style>
+    
 </resources>

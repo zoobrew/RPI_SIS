@@ -11,14 +11,13 @@ import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
-//import android.view.MenuItem;
-//import android.support.v4.app.NavUtils;
 
 public class MainActivity extends ExpandableListActivity 
 {	
@@ -35,6 +34,7 @@ public class MainActivity extends ExpandableListActivity
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
         //actionBar.setDisplayHomeAsUpEnabled(true);
+        PreferenceManager.setDefaultValues(this, R.layout.settingsmenu, false);
     
         List<Map<String, String>> menuData = new ArrayList<Map<String, String>>();
         List<List<Map<String, String>>> submData = new ArrayList<List<Map<String, String>>>();

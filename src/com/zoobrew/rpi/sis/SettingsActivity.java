@@ -4,13 +4,18 @@ import java.io.InputStream;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 //TODO convert to settingfragment
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
+	public static final String DARK_THEME_SELECTED = "darkttheme_preference";
+	
 	String user;
 	String pass;
 	InputStream is = null;
@@ -19,10 +24,12 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.layout.settingsmenu);
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
-        //setContentView(R.layout.settingsmenu);
+     // Display the fragment as the main content.
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new SettingsFragment())
+                .commit();
 	}
     
 	@Override
@@ -59,4 +66,14 @@ public class SettingsActivity extends PreferenceActivity {
  		super.onPause();
  		finish();
  	}
+
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		// TODO Auto-generated method stub
+		if (key.equals(DARK_THEME_SELECTED)) {
+            Preference connectionPref = findPreference(key);
+            // Set summary to be the user-description for the selected value
+            connectionPref.setSummary(sharedPreferences.getString(key, "dark_setting"));
+            //Utils.changeToTheme(this, Utils.THEME_DEFAULT);
+        }
+	}
 }
