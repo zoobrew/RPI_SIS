@@ -1,6 +1,8 @@
 package com.zoobrew.rpi.sis;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -10,6 +12,10 @@ import android.widget.ListView;
 
 public class MenuFragment extends ListFragment {
     OnMenuSelectedListener mCallback;
+    Resources res = getResources();
+    private String[][] SubMenus;
+	private String[] Menu;
+    
     
     int mCurrentPosition = -1;
 
@@ -22,6 +28,18 @@ public class MenuFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Menu = res.getStringArray(R.array.Menus);
+        TypedArray ta = res.obtainTypedArray(R.array.SubMenus);
+        int n = ta.length();
+        SubMenus = new String[n][];
+        for (int i = 0; i < n; ++i) {
+            int id = ta.getResourceId(i, 0);
+            if (id > 0) {
+                SubMenus[i] = res.getStringArray(id);
+            } else {
+                // something wrong with the XML
+            }
+        }
         
      // We need to use a different list item layout for devices older than Honeycomb
         int layout = Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1 ?
@@ -29,7 +47,7 @@ public class MenuFragment extends ListFragment {
         //android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
 
         // Create an array adapter for the list view, using the Ipsum headlines array
-        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, Titles.Menus));
+        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, Menu));
     }
 
     @Override
@@ -68,7 +86,7 @@ public class MenuFragment extends ListFragment {
     
     public void updateMenuView(int position) {
         //ListView menu = (ListView) getActivity().findViewById(R.id.fragment_container);
-        setListAdapter(new ArrayAdapter<String>(getActivity(), R.layout.main, Titles.SubMenu[position]));
+        setListAdapter(new ArrayAdapter<String>(getActivity(), R.layout.main,  SubMenus[position]));
         mCurrentPosition = position;
     }
 }

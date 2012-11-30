@@ -10,6 +10,7 @@ import android.app.ActionBar;
 import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,8 @@ public class MainActivity extends ExpandableListActivity
 	private ExpandableListAdapter mAdapter;
 	public final static String MENUNUM = "com.zoobrew.rpi.sis.MenuNum";
 	public final static String SUBMENUNUM= "com.zoobrew.rpi.sis.SubMenuNum";
+	private String[][] SubMenus;
+	private String[] Menu;
  
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -35,24 +38,37 @@ public class MainActivity extends ExpandableListActivity
         actionBar.setHomeButtonEnabled(true);
         //actionBar.setDisplayHomeAsUpEnabled(true);
     
+        /** Set up Arrays from the array.xml file **/
         List<Map<String, String>> menuData = new ArrayList<Map<String, String>>();
         List<List<Map<String, String>>> submData = new ArrayList<List<Map<String, String>>>();
-        
         Resources res = getResources();
-        String[] SubMenus = res.getStringArray(R.array.SubMenus);
+        Menu = res.getStringArray(R.array.Menus);
+        TypedArray ta = res.obtainTypedArray(R.array.SubMenus);
+        int n = ta.length();
+        SubMenus = new String[n][];
+        for (int i = 0; i < n; ++i) {
+            int id = ta.getResourceId(i, 0);
+            if (id > 0) {
+                SubMenus[i] = res.getStringArray(id);
+            } else {
+                // something wrong with the XML
+            }
+        }
+        ta.recycle(); // Important!
         
-        for (int i =0; i < 5; i++) 
+        /** Set up Main and expandable Submenus from arrays **/ 
+        for (int i =0; i < Menu.length; i++) 
         {
        	 	Map<String, String> curGroupMap = new HashMap<String, String>();
             menuData.add(curGroupMap);
-            curGroupMap.put(NAME, Titles.Menus[i]);
+            curGroupMap.put(NAME, Menu[i]);
             List<Map<String, String>> children = new ArrayList<Map<String, String>>();
             
-            for (int j = 0; j < Titles.SubMenu[i].length; j++) 
+            for (int j = 0; j < SubMenus[i].length; j++) 
             {
                 Map<String, String> curChildMap = new HashMap<String, String>();
                 children.add(curChildMap);
-                curChildMap.put(NAME, Titles.SubMenu[i][j]);    
+                curChildMap.put(NAME, SubMenus[i][j]);    
             }
             submData.add(children);
         }
@@ -60,7 +76,7 @@ public class MainActivity extends ExpandableListActivity
         // Set up our adapter
         mAdapter = new SimpleExpandableListAdapter(
        		 this, 
-       		 menuData, // groupData describes the first-level entries 
+       		 menuData, // menuData describes the first-level entries 
        		 android.R.layout.simple_expandable_list_item_2, // Layout for the first-level entries new
        		 new String[] { NAME,  IS_EVEN }, // Key in the menuData maps to display 
        		 new int[] { android.R.id.text1, android.R.id.text2 }, // Data under "Item" key goes into this TextView createChildList(),
@@ -95,27 +111,19 @@ public class MainActivity extends ExpandableListActivity
 	        	startActivity(intent);
 	            return true;
 	        case R.id.menu_logout:
-	        	Intent logout = new Intent(this, Login.class);
 	        	finish();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	
-	/*Called when the user presses the settings button in the action overflow
-    public void ButtonPress(View view){
-    	Intent intent = new Intent(this, SettingsActivity.class);
-		startActivity(intent);
-    }
-    */
-    
+    /** When Submenu item is selected start the appropriate activity **/
     @Override
     public boolean onChildClick (ExpandableListView parent, View v, int groupPosition, int childPosition, long id) 
     {
-		if (groupPosition < Titles.Menus.length)
+		if (groupPosition < Menu.length)
 		{
-			if (childPosition < Titles.SubMenu[groupPosition].length)
+			if (childPosition < SubMenus[groupPosition].length)
 			{
 				Intent intent = new Intent(this, Item.class);
 		    	String number1 = Integer.toString(groupPosition);

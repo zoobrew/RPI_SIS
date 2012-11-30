@@ -12,7 +12,6 @@ import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-//TODO convert to settingfragment
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	public static final String DARK_THEME_SELECTED = "darkttheme_preference";
 	private static int sTheme;
