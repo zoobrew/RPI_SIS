@@ -16,19 +16,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Login extends Activity{
-	public final static String MESSAGE_user = "com.zoobrew.rpi.sis.temp.LOGINmess";
-	public final static String MESSAGE_pass = "com.zoobrew.rpi.sis.temp.LOGINpass";
 	protected int mResults;
 	
 	 /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Set default setting values upon entering the app
         PreferenceManager.setDefaultValues(this, R.layout.settingsmenu, false);
         setContentView(R.layout.login);
     }
     
-    //handler for callback to UI thread
+    //handler for callback to UI thread from login thread
     final Handler mHandler = new Handler();
     final Runnable mUpdateResults = new Runnable() {
     	public void run() {
@@ -46,14 +45,11 @@ public class Login extends Activity{
     	};
     	t.start();
     }
-    
+    // Back in the UI thread -- update our UI elements based on the data in mResults
     private void updateResultsInUi() {
-    	// Back in the UI thread -- update our UI elements based on the data in mResults
-    	if (mResults < 400 )
+    	if (mResults == 200 )
     	{
     		Intent intent = new Intent(this, MainActivity.class);
-    		//intent.putExtra(MESSAGE_user, user);
-    		//intent.putExtra (MESSAGE_pass, pass);
     		startActivity(intent);
     	}
     	else
@@ -78,7 +74,7 @@ public class Login extends Activity{
     
     //Called when the user presses the login button
     public void ButtonPress(View view){
-    	Toast.makeText(this, "Logging in" , Toast.LENGTH_LONG).show();
+    	Toast.makeText(this, "Logging in" , Toast.LENGTH_SHORT).show();
     	startLongRunningOperation();
     }
 

@@ -56,7 +56,7 @@ public class MainActivity extends ExpandableListActivity
         }
         ta.recycle(); // Important!
         
-        /** Set up Main and expandable Submenus from arrays **/ 
+        /** Set up Main and expandable Submenu into arrays **/ 
         for (int i =0; i < Menu.length; i++) 
         {
        	 	Map<String, String> curGroupMap = new HashMap<String, String>();
