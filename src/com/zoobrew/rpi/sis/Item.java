@@ -6,6 +6,8 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 public class Item extends Activity {
@@ -16,7 +18,8 @@ public class Item extends Activity {
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);        
+        super.onCreate(savedInstanceState);
+        //getWindow().requestFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.item);
         
         //Obtain the data from the intent that indicates the url to open
@@ -39,7 +42,19 @@ public class Item extends Activity {
         }
         
 	    String url = HTMLaddresses[mNUM][smNUM];
-        mWebView = (WebView) findViewById(R.id.webview);
+	    mWebView = (WebView) findViewById(R.id.webview);
+	    //getWindow().requestFeature(Window.FEATURE_PROGRESS);
+
+	    mWebView.getSettings().setJavaScriptEnabled(true);
+
+	    final Activity activity = this;
+	    mWebView.setWebChromeClient(new WebChromeClient() {
+	      public void onProgressChanged(WebView view, int progress) {
+	        // Activities and WebViews measure progress with different scales.
+	        // The progress meter will automatically disappear when we reach 100%
+	        activity.setProgress(progress * 1000);
+	      }
+	    });
         //myWebView.getSettings().setJavaScriptEnabled(true);
         //load as zoomed out
         mWebView.getSettings().setLoadWithOverviewMode(true);
@@ -82,7 +97,7 @@ public class Item extends Activity {
     	// Back in the UI thread -- update our UI elements based on the data in mResults
     	
     	// see http://developer.android.com/reference/android/webkit/WebView.html#loadData(java.lang.String, java.lang.String, java.lang.String)
-   	 	mWebView.loadData (mHttpResults, "text/html", null);
+   	 	mWebView.loadDataWithBaseURL("https://sis.rpi.edu", mHttpResults, "text/html", null, null);
     }
     
 }
