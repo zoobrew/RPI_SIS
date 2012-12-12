@@ -34,13 +34,17 @@ import android.util.Log;
 public class HttpHelper {
 
     public static final int HTTP_TIMEOUT = 30 * 1000; // milliseconds
-    private static HttpClient mHttpClient = null;
+    private static DefaultHttpClient mHttpClient = null;
     private static HttpContext mContext = null;
     private static BasicCookieStore mCookieStore = null;
     
     
     public HttpHelper(ArrayList<NameValuePair> params){
-    	
+    }
+    
+    public static DefaultHttpClient getClient(){
+    	initClient();
+    	return mHttpClient;
     	
     }
     
@@ -155,7 +159,10 @@ public class HttpHelper {
         try {
             HttpGet request = new HttpGet();
             request.setURI(new URI(url));
+            System.out.println(mContext);
+            mHttpClient.execute(request, mContext);
             HttpResponse response = mHttpClient.execute(request, mContext);
+            
             in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
             StringBuffer sb = new StringBuffer("");

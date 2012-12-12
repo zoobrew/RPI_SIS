@@ -28,5 +28,6 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Item"></activity>
         <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".HttpActivity"></activity>
     </application>
 </manifest>

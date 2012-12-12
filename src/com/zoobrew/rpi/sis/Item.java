@@ -1,5 +1,10 @@
 package com.zoobrew.rpi.sis;
 
+import java.util.List;
+
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -7,6 +12,8 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
@@ -14,14 +21,21 @@ public class Item extends Activity {
 	
 	protected String mHttpResults;
 	protected WebView mWebView;
+	protected DefaultHttpClient mClient;
 
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().requestFeature(Window.FEATURE_PROGRESS);
+        getWindow().requestFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.item);
+        mWebView = (WebView) findViewById(R.id.webview);
+        setupWeb();
         
+    }
+        
+    public void setupWeb(){
+    	      
         //Obtain the data from the intent that indicates the url to open
         Intent intent = getIntent();
 	    int mNUM = Integer.parseInt(intent.getStringExtra(MainActivity.MENUNUM));
@@ -40,13 +54,10 @@ public class Item extends Activity {
                 // something wrong with the XML
             }
         }
-        
 	    String url = HTMLaddresses[mNUM][smNUM];
-	    mWebView = (WebView) findViewById(R.id.webview);
-	    //getWindow().requestFeature(Window.FEATURE_PROGRESS);
-
-	    mWebView.getSettings().setJavaScriptEnabled(true);
-
+	    
+	    //Enable progress bars
+	    
 	    final Activity activity = this;
 	    mWebView.setWebChromeClient(new WebChromeClient() {
 	      public void onProgressChanged(WebView view, int progress) {
@@ -55,11 +66,33 @@ public class Item extends Activity {
 	        activity.setProgress(progress * 1000);
 	      }
 	    });
-        //myWebView.getSettings().setJavaScriptEnabled(true);
-        //load as zoomed out
+	    
+	    
+	    //Sync cookies with httpClient
+	    
+	    mClient = HttpHelper.getClient();
+	    Cookie sessionInfo;
+	    List<Cookie> cookies = mClient.getCookieStore().getCookies();
+
+	    if (! cookies.isEmpty()){
+	    		System.out.print("COOKIE");
+	            CookieSyncManager.createInstance(getApplicationContext());
+	            CookieManager cookieManager = CookieManager.getInstance();
+
+	            for(Cookie cookie : cookies){
+	                    sessionInfo = cookie;
+	                    String cookieString = sessionInfo.getName() + "=" + sessionInfo.getValue() + "; domain=" + sessionInfo.getDomain();
+	                    cookieManager.setCookie("sis.rpi.edu", cookieString);
+	                    CookieSyncManager.getInstance().sync();
+	            }
+	    }
+	    
+	    
+	    //setup Webview
+	    mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setUseWideViewPort(true);
-        mWebView.setWebViewClient(new MyWebViewClient());
+        //mWebView.setWebViewClient(new MyWebViewClient());
         try{
         	startLongRunningOperation(url);
         	 //myWebView.loadUrl("https://sis.rpi.edu/rss/bwskrsta.P_RegsStatusDisp");
@@ -97,7 +130,8 @@ public class Item extends Activity {
     	// Back in the UI thread -- update our UI elements based on the data in mResults
     	
     	// see http://developer.android.com/reference/android/webkit/WebView.html#loadData(java.lang.String, java.lang.String, java.lang.String)
-   	 	mWebView.loadDataWithBaseURL("https://sis.rpi.edu", mHttpResults, "text/html", null, null);
+   	 	mWebView.loadDataWithBaseURL("https://sis.rpi.edu/", mHttpResults, "text/html", null, null);
+    	//mWebView.loadData(mHttpResults, "text/html", null);
     }
     
 }
