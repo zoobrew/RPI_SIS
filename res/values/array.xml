@@ -2,13 +2,14 @@
 <resources>
      <string-array
         name="pref_syncConnectionTypes_entries">
-        <item>item1</item>
-        <item>item2</item>
-        <item>item3</item>
+        <item>Light Theme</item>
+        <item>Dark Theme</item>
+        <item>Red Theme</item>
     </string-array>
     <string-array name="pref_syncConnectionTypes_values">
         <item>values1</item>
         <item>values2</item>
+        <item>values3</item>
     </string-array>
     
     <string-array name="Menus">

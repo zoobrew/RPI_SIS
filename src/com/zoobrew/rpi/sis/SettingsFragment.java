@@ -18,8 +18,6 @@ public class SettingsFragment extends PreferenceFragment  {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.layout.settingsmenu);
         Activity activity = getActivity();
-        //ActionBar actionBar = getActionBar();
-        //actionBar.setHomeButtonEnabled(true);
 	}
     
 	
