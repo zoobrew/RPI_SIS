@@ -7,7 +7,7 @@ import android.webkit.WebView;
 import com.loopj.android.http.*;
 
 /**using Android Asynchronous Http Client 1.4.2
-A Callback-Based Http Client Library for Android **/
+A Callback-Based Http Client Library for Android 
 public class HttpActivity extends Activity{
 	
 	protected String mHttpResults;
@@ -16,14 +16,14 @@ public class HttpActivity extends Activity{
 	 @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().requestFeature(Window.FEATURE_PROGRESS);
+        //getWindow().requestFeature(Windowrss.FEATURE_PROGRESS);
         setContentView(R.layout.item);
         mWebView = (WebView) findViewById(R.id.webview);
 	        
         AsyncHttpClient myClient = new AsyncHttpClient();
         PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         myClient.setCookieStore(myCookieStore);
-        myClient.get("https://sis.rpi.edu/rss/hwsklptp.P_StuViewLptp", new AsyncHttpResponseHandler() {
+        myClient.get("http://www.google.com", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
             	mWebView.loadDataWithBaseURL("https://sis.rpi.edu", mHttpResults, "text/html", null, null);
@@ -37,3 +37,4 @@ public class HttpActivity extends Activity{
 	 
 
 }
+**/

@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -32,6 +33,8 @@ public class Item extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getActionBar();
+        actionBar.setHomeButtonEnabled(true);
         getWindow().requestFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.item);
         mWebView = (WebView) findViewById(R.id.webview);

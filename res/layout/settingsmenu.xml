@@ -7,8 +7,8 @@
         android:defaultValue="false" />
     <CheckBoxPreference
         android:key="customtheme_preference"
-        android:title="not yet implemented"
-        android:summary="Use Dark Theme"
+        android:title="Use Custom Theme"
+        android:summary="not yet implemented"
         android:defaultValue="true" />
     <ListPreference
         android:dependency="customtheme_preference"

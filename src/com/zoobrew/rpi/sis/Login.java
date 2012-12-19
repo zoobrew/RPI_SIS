@@ -77,6 +77,11 @@ public class Login extends Activity{
     	Toast.makeText(this, "Logging in" , Toast.LENGTH_SHORT).show();
     	startLongRunningOperation();
     }
+    
+    public void TestPress(View view){
+    	Intent intent = new Intent(this, DefaultLoginActivity.class);
+		startActivity(intent);
+    }
 
 
 	@Override
