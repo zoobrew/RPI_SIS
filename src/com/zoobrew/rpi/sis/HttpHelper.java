@@ -4,14 +4,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -20,32 +23,46 @@ import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.cookie.CookieOrigin;
+import org.apache.http.cookie.MalformedCookieException;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.impl.cookie.RFC2109Spec;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
+import android.app.Application;
 import android.util.Log;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 
-public class HttpHelper {
+public class HttpHelper extends Application{
 
     public static final int HTTP_TIMEOUT = 30 * 1000; // milliseconds
     private static DefaultHttpClient mHttpClient = null;
     private static HttpContext mContext = null;
     private static BasicCookieStore mCookieStore = null;
+    public static Cookie cookie;
     
     
     public HttpHelper(ArrayList<NameValuePair> params){
+    	initClient();
     }
     
     public static DefaultHttpClient getClient(){
     	initClient();
     	return mHttpClient;
     	
+    }
+    
+    public static DefaultHttpClient returnClient(){
+    	return mHttpClient;
     }
     
     /*private static HttpClient getHttpClient() {
@@ -61,7 +78,8 @@ public class HttpHelper {
     */
     private static void initClient() 
 	{ 
-	    if (mHttpClient == null)
+ 
+    	if (mHttpClient == null)
 	    {
 	    	//sets up parameters
 		    HttpParams params = new BasicHttpParams();
@@ -81,13 +99,17 @@ public class HttpHelper {
 	    }
 	    if (mCookieStore == null)
 	    {
+	    	
 	    	mCookieStore = new BasicCookieStore();
+	    	mHttpClient.getCookieStore().getCookies();
+	    	
 	    }
 	    if(mContext == null)
 	    {	
 	    	mContext = new BasicHttpContext();
 	    	mContext.setAttribute(ClientContext.COOKIE_STORE, mCookieStore);
 		}
+	    
 	}
     
     /**
@@ -110,6 +132,8 @@ public class HttpHelper {
             request.setEntity(formEntity);
             //doesn't login on first try
             mHttpClient.execute(request, mContext);
+            Log.d("Context:", mContext.toString());
+            Log.d("Request:", request.getAllHeaders().toString());
             HttpResponse response = mHttpClient.execute(request, mContext);
             status = response.getStatusLine().getStatusCode();
             in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -123,7 +147,7 @@ public class HttpHelper {
             in.close();
 
             String result = sb.toString();
-            Log.d("Http Result:", result);
+            //Log.d("Http Result:", result);
         } catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -142,7 +166,8 @@ public class HttpHelper {
                 }
             }
         }
-        Log.d("Http Status:", String.valueOf(status)); 
+        Log.d("Http Status:", String.valueOf(status));
+        
         return status;
     }
     
@@ -159,7 +184,6 @@ public class HttpHelper {
         try {
             HttpGet request = new HttpGet();
             request.setURI(new URI(url));
-            System.out.println(mContext);
             mHttpClient.execute(request, mContext);
             HttpResponse response = mHttpClient.execute(request, mContext);
             
@@ -185,6 +209,27 @@ public class HttpHelper {
             }
         }
     }
+    
+    public static HttpResponse executeHttpGet2(String url) throws Exception 
+    {
+        BufferedReader in = null;
+        try {
+            HttpGet request = new HttpGet();
+            request.setURI(new URI(url));
+            mHttpClient.execute(request, mContext);
+            return mHttpClient.execute(request, mContext);
+            
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void clearCookies() {
 
     	mCookieStore.clear();

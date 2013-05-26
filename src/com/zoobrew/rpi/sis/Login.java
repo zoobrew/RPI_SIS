@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,8 @@ public class Login extends Activity{
         //Set default setting values upon entering the app
         PreferenceManager.setDefaultValues(this, R.layout.settingsmenu, false);
         setContentView(R.layout.login);
+        CookieSyncManager.createInstance(this);
+        CookieManager.getInstance().setAcceptCookie(true);
     }
     
     //handler for callback to UI thread from login thread
@@ -87,9 +91,15 @@ public class Login extends Activity{
 	@Override
 	protected void onPause() {
 		super.onPause();
+		CookieSyncManager.getInstance().sync();
 		finish(); 
 	}
     
+	public void onResume() {
+		super.onResume();
+	    CookieSyncManager.getInstance().stopSync();
+	  }
+	
     
 
 }

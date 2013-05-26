@@ -44,6 +44,10 @@
             android:name="com.zoobrew.rpi.sis.DefaultSettingsActivity"
             android:label="@string/title_activity_default_settings" >
         </activity>
+        <activity
+            android:name="com.zoobrew.rpi.sis.HttpsURLConnectionHelper"
+            android:label="@string/title_activity_https_urlconnection_helper" >
+        </activity>
     </application>
 
 </manifest>

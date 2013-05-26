@@ -1,10 +1,5 @@
 package com.zoobrew.rpi.sis;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-
-import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.ActionBar;
@@ -14,29 +9,33 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 public class Item extends Activity {
 	
 	protected String mHttpResults;
-	protected WebView mWebView;
+	public static WebView mWebView;
 	protected DefaultHttpClient mClient;
+	
+    //handler for callback to UI thread
+    final Handler mHandler = new Handler();
+    final Runnable mUpdateResults = new Runnable() {
+    	public void run() {
+    		updateResultsInUi();
+    	}
+    };
 
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.item);
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
-        getWindow().requestFeature(Window.FEATURE_PROGRESS);
-        setContentView(R.layout.item);
+
+        //getWindow().requestFeature(Window.FEATURE_PROGRESS);
         mWebView = (WebView) findViewById(R.id.webview);
         setupWeb();
         
@@ -79,7 +78,7 @@ public class Item extends Activity {
 	    int mNUM = Integer.parseInt(intent.getStringExtra(MainActivity.MENUNUM));
 	    int smNUM = Integer.parseInt(intent.getStringExtra(MainActivity.SUBMENUNUM));
 	    
-	    //Obtain the list of addresses from array.xml file
+	    //Obtain the URL from array.xml file
 	    Resources res = getResources();
         TypedArray ta = res.obtainTypedArray(R.array.MenuHttp);
         int n = ta.length();
@@ -92,11 +91,12 @@ public class Item extends Activity {
                 // something wrong with the XML
             }
         }
+        ta.recycle();
 	    String url = HTMLaddresses[mNUM][smNUM];
 	    
 	    //Enable progress bars
 	    
-	    final Activity activity = this;
+	    /*final Activity activity = this;
 	    mWebView.setWebChromeClient(new WebChromeClient() {
 	      public void onProgressChanged(WebView view, int progress) {
 	        // Activities and WebViews measure progress with different scales.
@@ -104,52 +104,27 @@ public class Item extends Activity {
 	        activity.setProgress(progress * 1000);
 	      }
 	    });
-	    
-	    
-	    //Sync cookies with httpClient
+	    */
 	    
 	    mClient = HttpHelper.getClient();
-	    Cookie sessionInfo;
-	    List<Cookie> cookies = mClient.getCookieStore().getCookies();
-
-	    if (! cookies.isEmpty()){
-	    		System.out.print("COOKIE");
-	            CookieSyncManager.createInstance(getApplicationContext());
-	            CookieManager cookieManager = CookieManager.getInstance();
-
-	            for(Cookie cookie : cookies){
-	                    sessionInfo = cookie;
-	                    String cookieString = sessionInfo.getName() + "=" + sessionInfo.getValue() + "; domain=" + sessionInfo.getDomain();
-	                    cookieManager.setCookie("sis.rpi.edu", cookieString);
-	                    CookieSyncManager.getInstance().sync();
-	            }
-	    }
-	    
 	    
 	    //setup Webview
 	    mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setUseWideViewPort(true);
         //mWebView.getSettings().setSavePassword(true);
-        MyWebViewClient mWebClient = new MyWebViewClient();
         //mWebClient.shouldOverrideUrlLoading(true);
         mWebView.setWebViewClient(new MyWebViewClient());
+        //mWebView.setWebChromeClient(new WebChromeClient()); 
         try{
         	startLongRunningOperation(url);
-        	 //myWebView.loadUrl("https://sis.rpi.edu/rss/bwskrsta.P_RegsStatusDisp");
-        	 //myWebView.addJavascriptInterface(new JavaScriptInterface(this), "Android");
+        	//myWebView.loadUrl("https://sis.rpi.edu/rss/bwskrsta.P_RegsStatusDisp");
+        	//myWebView.addJavascriptInterface(new JavaScriptInterface(this), "Android");
         }
         catch(Exception e){
         	e.printStackTrace();
         }
     }
-    //handler for callback to UI thread
-    final Handler mHandler = new Handler();
-    final Runnable mUpdateResults = new Runnable() {
-    	public void run() {
-    		updateResultsInUi();
-    	}
-    };
     
     protected void startLongRunningOperation(final String URL){
     	// Fire off a thread to do some work that we shouldn't do directly in the UI thread
@@ -171,14 +146,8 @@ public class Item extends Activity {
     	// Back in the UI thread -- update our UI elements based on the data in mResults
     	
     	// see http://developer.android.com/reference/android/webkit/WebView.html#loadData(java.lang.String, java.lang.String, java.lang.String)
-    	try {
-    		URL mURL = new URL("https://sis.rpi.edu/");
-    		mWebView.loadDataWithBaseURL("https://sis.rpi.edu/", mHttpResults, "text/html", null, null);
-        	//mWebView.loadData(mHttpResults, "text/html", null);
-        } catch (MalformedURLException e) {
-            Log.e("WEBEXTVIEW", "Unable to parse URL ");
-        }
-    	
+    	mWebView.loadDataWithBaseURL("https://sis.rpi.edu/", mHttpResults, "text/html", null, null);
+        
     }
     
 }

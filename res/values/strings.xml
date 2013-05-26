@@ -13,6 +13,7 @@
     <string name="filler">Settings menu to be added</string>
     <string name="dark_setting">Dark Theme Enabled</string>
     <string name="login_success">&lt;HTML&gt;&lt;HEAD&gt;&lt;meta</string>
-    
+    <string name="title_activity_https_urlconnection_helper">HttpsURLConnectionHelper</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
