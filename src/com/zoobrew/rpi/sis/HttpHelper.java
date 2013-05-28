@@ -4,17 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -24,13 +20,9 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.cookie.Cookie;
-import org.apache.http.cookie.CookieOrigin;
-import org.apache.http.cookie.MalformedCookieException;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.impl.cookie.RFC2109Spec;
-import org.apache.http.message.BasicHeader;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
@@ -39,8 +31,6 @@ import org.apache.http.protocol.HttpContext;
 
 import android.app.Application;
 import android.util.Log;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 
 public class HttpHelper extends Application{
 
@@ -65,17 +55,6 @@ public class HttpHelper extends Application{
     	return mHttpClient;
     }
     
-    /*private static HttpClient getHttpClient() {
-        if (mHttpClient == null) {
-            mHttpClient = new DefaultHttpClient();
-            final HttpParams params = mHttpClient.getParams();
-            HttpConnectionParams.setConnectionTimeout(params, HTTP_TIMEOUT);
-            HttpConnectionParams.setSoTimeout(params, HTTP_TIMEOUT);
-            ConnManagerParams.setTimeout(params, HTTP_TIMEOUT);
-        }
-        return mHttpClient;
-    }
-    */
     private static void initClient() 
 	{ 
  
@@ -121,19 +100,20 @@ public class HttpHelper extends Application{
      * @return The result of the request
      * @throws Exception
      */
-    public static int executeHttpPost(final String url, final ArrayList<NameValuePair> postParameters) // throws Exception 
+    public static boolean executeHttpPost(final String url, final ArrayList<NameValuePair> postParameters) // throws Exception 
     {
     	initClient();
 		BufferedReader in = null;
 		int status = 0;
+		String result = null;
         try {          
             HttpPost request = new HttpPost(url);
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(postParameters);
             request.setEntity(formEntity);
             //doesn't login on first try
             mHttpClient.execute(request, mContext);
-            Log.d("Context:", mContext.toString());
-            Log.d("Request:", request.getAllHeaders().toString());
+            Log.d("CONTEXT:", mContext.toString());
+            Log.d("REQUEST:", request.getAllHeaders().toString());
             HttpResponse response = mHttpClient.execute(request, mContext);
             status = response.getStatusLine().getStatusCode();
             in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -146,8 +126,8 @@ public class HttpHelper extends Application{
             }
             in.close();
 
-            String result = sb.toString();
-            //Log.d("Http Result:", result);
+            result = sb.toString();
+            Log.d("HTTP RESULT:", result);
         } catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,8 +147,12 @@ public class HttpHelper extends Application{
             }
         }
         Log.d("Http Status:", String.valueOf(status));
+        if(result.contains("Login")){
+        	return false;
+        }
         
-        return status;
+        return true;
+        
     }
     
     /**

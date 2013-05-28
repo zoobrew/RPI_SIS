@@ -27,7 +27,7 @@
         </activity>
         <activity android:name="com.zoobrew.rpi.sis.AccountActivity" >
         </activity>
-        <activity android:name="com.zoobrew.rpi.sis.MainActivity" >
+        <activity android:name="com.zoobrew.rpi.sis.MainMenuActivity" >
         </activity>
         <activity android:name="com.zoobrew.rpi.sis.Item" >
         </activity>

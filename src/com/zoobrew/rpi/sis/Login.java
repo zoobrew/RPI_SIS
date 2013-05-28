@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Login extends Activity{
-	protected int mResults;
+	protected boolean mResults;
 	
 	 /** Called when the activity is first created. */
     @Override
@@ -51,25 +51,23 @@ public class Login extends Activity{
     }
     // Back in the UI thread -- update our UI elements based on the data in mResults
     private void updateResultsInUi() {
-    	if (mResults == 200 )
+    	if (mResults )
     	{
-    		Intent intent = new Intent(this, MainActivity.class);
+    		Intent intent = new Intent(this, MainMenuActivity.class);
     		startActivity(intent);
     	}
     	else
     	{
-    		TextView tvError = (TextView) findViewById(R.id.tvError);
-    		tvError.setText("Login Error code "+mResults);	
+    		Toast.makeText(this, "Incorrect username or password" , Toast.LENGTH_SHORT).show();	
     	}
     }
     
     
-    public int LoginUser() {
+    public boolean LoginUser() {
     	EditText username = (EditText) findViewById(R.id.etUsername);
     	EditText password = (EditText) findViewById(R.id.etPassword);
     	String user = username.getText().toString();
     	String pass = password.getText().toString();
-    	
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	    nameValuePairs.add(new BasicNameValuePair("sid", user));
 	    nameValuePairs.add(new BasicNameValuePair("PIN", pass));
@@ -78,8 +76,16 @@ public class Login extends Activity{
     
     //Called when the user presses the login button
     public void ButtonPress(View view){
-    	Toast.makeText(this, "Logging in" , Toast.LENGTH_SHORT).show();
-    	startLongRunningOperation();
+    	EditText username = (EditText) findViewById(R.id.etUsername);
+    	String user = username.getText().toString();
+    	if ((user.length() == 9) && (user.substring(0, 3).equalsIgnoreCase("660"))){
+    		Toast.makeText(this, "Logging in" , Toast.LENGTH_SHORT).show();
+        	startLongRunningOperation();
+    	}
+    	else{
+    		Toast.makeText(this, "Error with Username" , Toast.LENGTH_SHORT).show();
+    	}
+    	
     }
     
     public void TestPress(View view){
@@ -91,13 +97,11 @@ public class Login extends Activity{
 	@Override
 	protected void onPause() {
 		super.onPause();
-		CookieSyncManager.getInstance().sync();
 		finish(); 
 	}
     
 	public void onResume() {
 		super.onResume();
-	    CookieSyncManager.getInstance().stopSync();
 	  }
 	
     

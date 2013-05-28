@@ -19,7 +19,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 
-public class MainActivity extends ExpandableListActivity 
+public class MainMenuActivity extends ExpandableListActivity 
 {	
 	private static final String NAME = "NAME";
 	private static final String IS_EVEN = "IS_EVEN";
@@ -101,16 +101,18 @@ public class MainActivity extends ExpandableListActivity
 		// Handle item selection
 	    switch (item.getItemId()) {
 	    	case android.R.id.home:
-		    	// app icon in action bar clicked; go home
-	            Intent goHome = new Intent(this, MainActivity.class);
+		    	//app icon in action bar clicked; go home
+	            Intent goHome = new Intent(this, MainMenuActivity.class);
 	            goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(goHome);
 	            return true;
 	        case R.id.menu_settings:
+	        	//settings icon selected
 	        	Intent intent = new Intent(this, SettingsActivity.class);
 	        	startActivity(intent);
 	            return true;
 	        case R.id.menu_logout:
+	        	//Log Out selected
 	        	finish();
 	            return true;
 	        default:

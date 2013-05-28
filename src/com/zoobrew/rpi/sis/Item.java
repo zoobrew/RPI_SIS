@@ -54,16 +54,18 @@ public class Item extends Activity {
 		// Handle item selection
 	    switch (item.getItemId()) {
 	    	case android.R.id.home:
-		    	// app icon in action bar clicked; go home
-	            Intent goHome = new Intent(this, MainActivity.class);
+		    	//app icon in action bar clicked; go home
+	            Intent goHome = new Intent(this, MainMenuActivity.class);
 	            goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(goHome);
 	            return true;
 	        case R.id.menu_settings:
+	        	//Settings icon clicked
 	        	Intent intent = new Intent(this, SettingsActivity.class);
 	        	startActivity(intent);
 	            return true;
 	        case R.id.menu_logout:
+	        	//Log out selected
 	        	finish();
 	            return true;
 	        default:
@@ -75,8 +77,8 @@ public class Item extends Activity {
     	      
         //Obtain the data from the intent that indicates the url to open
         Intent intent = getIntent();
-	    int mNUM = Integer.parseInt(intent.getStringExtra(MainActivity.MENUNUM));
-	    int smNUM = Integer.parseInt(intent.getStringExtra(MainActivity.SUBMENUNUM));
+	    int mNUM = Integer.parseInt(intent.getStringExtra(MainMenuActivity.MENUNUM));
+	    int smNUM = Integer.parseInt(intent.getStringExtra(MainMenuActivity.SUBMENUNUM));
 	    
 	    //Obtain the URL from array.xml file
 	    Resources res = getResources();

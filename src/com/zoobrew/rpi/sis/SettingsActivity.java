@@ -51,7 +51,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 	    switch (item.getItemId()) {
 	    	case android.R.id.home:
 		    	// app icon in action bar clicked; go home
-	            Intent goHome = new Intent(this, MainActivity.class);
+	            Intent goHome = new Intent(this, MainMenuActivity.class);
 	            goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(goHome);
 	            return true;
