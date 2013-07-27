@@ -1,6 +1,5 @@
 package com.zoobrew.rpi.sis;
 
-import java.lang.annotation.Target;
 import java.util.List;
 
 import android.content.Context;
@@ -52,9 +51,8 @@ public class DefaultSettingsActivity extends PreferenceActivity {
 	 * shown.
 	 */
 	private void setupSimplePreferencesScreen() {
-		if (!isSimplePreferences(this)) {
+		if (!isSimplePreferences(this))
 			return;
-		}
 
 		// In the simplified UI, fragments are not used at all and we instead
 		// use the older PreferenceActivity APIs.
@@ -113,9 +111,8 @@ public class DefaultSettingsActivity extends PreferenceActivity {
 	/** {@inheritDoc} */
 	@Override
 	public void onBuildHeaders(List<Header> target) {
-		if (!isSimplePreferences(this)) {
+		if (!isSimplePreferences(this))
 			loadHeadersFromResource(R.xml.pref_headers, target);
-		}
 	}
 
 	/**
@@ -134,24 +131,23 @@ public class DefaultSettingsActivity extends PreferenceActivity {
 
 				// Set the summary to reflect the new value.
 				preference
-						.setSummary(index >= 0 ? listPreference.getEntries()[index]
-								: null);
+				.setSummary(index >= 0 ? listPreference.getEntries()[index]
+						: null);
 
 			} else if (preference instanceof RingtonePreference) {
 				// For ringtone preferences, look up the correct display value
 				// using RingtoneManager.
-				if (TextUtils.isEmpty(stringValue)) {
+				if (TextUtils.isEmpty(stringValue))
 					// Empty values correspond to 'silent' (no ringtone).
 					preference.setSummary(R.string.pref_ringtone_silent);
-
-				} else {
+				else {
 					Ringtone ringtone = RingtoneManager.getRingtone(
 							preference.getContext(), Uri.parse(stringValue));
 
-					if (ringtone == null) {
+					if (ringtone == null)
 						// Clear the summary if there was a lookup error.
 						preference.setSummary(null);
-					} else {
+					else {
 						// Set the summary to reflect the new ringtone display
 						// name.
 						String name = ringtone
@@ -160,11 +156,10 @@ public class DefaultSettingsActivity extends PreferenceActivity {
 					}
 				}
 
-			} else {
+			} else
 				// For all other preferences, set the summary to the value's
 				// simple string representation.
 				preference.setSummary(stringValue);
-			}
 			return true;
 		}
 	};
@@ -181,7 +176,7 @@ public class DefaultSettingsActivity extends PreferenceActivity {
 	private static void bindPreferenceSummaryToValue(Preference preference) {
 		// Set the listener to watch for value changes.
 		preference
-				.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
+		.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
 		// Trigger the listener immediately with the preference's
 		// current value.
@@ -189,7 +184,7 @@ public class DefaultSettingsActivity extends PreferenceActivity {
 				preference,
 				PreferenceManager.getDefaultSharedPreferences(
 						preference.getContext()).getString(preference.getKey(),
-						""));
+								""));
 	}
 
 	/**
@@ -216,7 +211,7 @@ public class DefaultSettingsActivity extends PreferenceActivity {
 	 * activity is showing a two-pane settings UI.
 	 */
 	public static class NotificationPreferenceFragment extends
-			PreferenceFragment {
+	PreferenceFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);

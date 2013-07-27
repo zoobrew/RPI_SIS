@@ -41,20 +41,5 @@
           android:text="@string/login_b" 
           android:layout_gravity="right"
           android:onClick="ButtonPress"/>
-      <Button
-          android:id="@+id/btest"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="TEST"
-          android:layout_gravity="left"
-          android:onClick="TestPress"/>
-      <TextView
-        android:id="@+id/tvError"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="20dp"
-        android:textColor="#ff0000" />
-      
 
 </LinearLayout>

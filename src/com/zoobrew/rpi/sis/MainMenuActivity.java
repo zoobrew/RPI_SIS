@@ -33,7 +33,7 @@ public class MainMenuActivity extends ExpandableListActivity
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
-        ThemeUtil.onActivityCreateSetTheme(this);
+        //ThemeUtil.onActivityCreateSetTheme(this);
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(true);
         //actionBar.setDisplayHomeAsUpEnabled(true);
@@ -56,7 +56,7 @@ public class MainMenuActivity extends ExpandableListActivity
         }
         ta.recycle(); // Important!
         
-        /** Set up Main and expandable Submenu into arrays **/ 
+        // Set up Main and expandable Submenu into arrays 
         for (int i =0; i < Menu.length; i++) 
         {
        	 	Map<String, String> curGroupMap = new HashMap<String, String>();
@@ -73,7 +73,7 @@ public class MainMenuActivity extends ExpandableListActivity
             submData.add(children);
         }
         
-        // Set up our adapter
+        // Set up our list adapter
         mAdapter = new SimpleExpandableListAdapter(
        		 this, 
        		 menuData, // menuData describes the first-level entries 
@@ -98,7 +98,7 @@ public class MainMenuActivity extends ExpandableListActivity
 	@Override
 	public boolean onOptionsItemSelected (MenuItem item)
 	{
-		// Handle item selection
+		// Handle action bar item selection
 	    switch (item.getItemId()) {
 	    	case android.R.id.home:
 		    	//app icon in action bar clicked; go home
@@ -119,8 +119,8 @@ public class MainMenuActivity extends ExpandableListActivity
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-    /** When Submenu item is selected start the appropriate activity **/
     @Override
+	/** When Submenu item is selected start the appropriate activity **/
     public boolean onChildClick (ExpandableListView parent, View v, int groupPosition, int childPosition, long id) 
     {
 		if (groupPosition < Menu.length)
